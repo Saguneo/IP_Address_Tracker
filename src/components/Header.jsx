@@ -8,12 +8,12 @@ function DataDisplay({ title, value, border }) {
     <div
       className={`${
         border && `md:border-r-[1px]`
-      } flex flex-col justify-start w-full md:border-gray-300 md:pr-10 md:pl-5 md:py-2 px-10`}
+      } text-center md:text-start w-full px-3 mb-4 md:pl-6 md:pr-6`}
     >
-      <p className=" uppercase text-[10px] md:text-xs mb-2 tracking-widest text-gray-400 font-bold">
+      <p className=" uppercase text-[10px] md:text-xs mb-0.5 md:mb-1.5 tracking-widest text-gray-400 font-bold">
         {title}
       </p>
-      <h1 className=" font-semibold text-xl line-clamp-2 ">{value}</h1>
+      <h1 className=" font-semibold text-lg md:text-lg">{value}</h1>
     </div>
   );
 }
@@ -23,6 +23,7 @@ export default function Header() {
   const [getLat, setLat] = useState(0);
   const [getLon, setLon] = useState(0);
   const [ip, setIp] = useState("");
+  const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
   const [timezone, setTimezone] = useState("");
   const [isp, setIsp] = useState("");
@@ -36,6 +37,7 @@ export default function Header() {
         setLat(response.data.lat);
         setLon(response.data.lon);
         setIp(response.data.query);
+        setCity(response.data.city);
         setLocation(response.data.regionName);
         setTimezone(response.data.timezone);
         setIsp(response.data.isp);
@@ -65,6 +67,7 @@ export default function Header() {
           setLat(response.data.lat);
           setLon(response.data.lon);
           setIp(response.data.query);
+          setCity(response.data.city);
           setLocation(response.data.regionName);
           setTimezone(response.data.timezone);
           setIsp(response.data.isp);
@@ -84,13 +87,17 @@ export default function Header() {
         <SearchBar userInput={userInput} fetchData={fetchData} />
       </div>{" "}
       {/* {inError && <p className=" text-red-600 ">{inError}</p>} */}
-      <div className="flex flex-col md:flex-row md:items-center md:h-fit md:px-2 gap-5 md:gap-0 w-full max-w-[85%] md:max-w-max mx-auto bottom-32 md:bottom-16 rounded-xl py-5 md:py-3 text-center md:text-start bg-white relative z-[2] shadow-lg">
+      <div className="w-[90%] max-w-[1100px] mx-auto pt-5 pb-1 md:pt-8 md:pb-4 flex flex-col md:flex-row bottom-32 md:bottom-16 rounded-xl bg-white relative z-[2] shadow-lg">
         <DataDisplay border="2" title="ip address" value={ip} />
-        <DataDisplay border="2" title="location" value={location} />
+        <DataDisplay
+          border="2"
+          title="location"
+          value={city + ", " + location}
+        />
         <DataDisplay border="2" title="timezone" value={timezone} />
         <DataDisplay border="" title="isp" value={isp} />
       </div>
-      <div className=" absolute top-[120px] w-full z-[1]">
+      <div className=" absolute top-[150px] w-full z-[1]">
         <Map getLat={getLat} getLon={getLon} />
       </div>
     </div>
