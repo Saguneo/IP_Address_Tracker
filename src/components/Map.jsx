@@ -1,6 +1,13 @@
 import { Icon } from "leaflet";
 import CustomIcon from "../images/icon-location.svg";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker,
+  Popup,
+  ZoomControl,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 export const Map = ({ getLat, getLon }) => {
