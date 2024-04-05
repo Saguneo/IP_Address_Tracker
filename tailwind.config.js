@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        "mobile-pattern": "url('/src/images/pattern-bg-mobile.png')",
+        "desk-pattern": "url('/src/images/pattern-bg-desktop.png')",
+      }),
+    },
   },
   plugins: [],
 };
