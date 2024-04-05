@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  min-width: 320px;
+}
+
+#root {
+  margin: 0 auto;
+  font-family: "Rubik", sans-serif;
+}
+
+.leaflet-container {
+  height: 100vh;
+}
