@@ -14,14 +14,14 @@ export const SearchBar = ({ userInput, fetchData }) => {
 
       <form className="flex mx-auto w-full max-w-[85%]" onSubmit={fetchData}>
         <input
-          className="mx-auto py-3 pl-4 w-full rounded-tl-lg rounded-bl-lg"
+          className="mx-auto py-3 pl-4 w-full rounded-tl-xl rounded-bl-xl"
           type="text"
           placeholder="Enter IP or domain"
           onChange={userInput}
         />
         <button
           type="submit"
-          className="bg-black p-5 rounded-tr-lg rounded-br-lg"
+          className="bg-black p-5 rounded-tr-xl rounded-br-xl"
         >
           <img src={ArrowIcon} alt="" />
         </button>

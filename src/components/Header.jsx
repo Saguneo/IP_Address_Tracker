@@ -9,7 +9,7 @@ function DataDisplay({ title, value }) {
       <p className=" uppercase text-[10px] tracking-widest text-gray-400 font-bold">
         {title}
       </p>
-      <h1 className=" font-bold text-lg">{value}</h1>
+      <h1 className=" font-semibold text-lg">{value}</h1>
     </div>
   );
 }
@@ -24,6 +24,7 @@ export default function Header() {
   const [isp, setIsp] = useState("");
   const [inError, setInError] = useState("");
 
+  /*First Load*/
   useEffect(() => {
     const fetchUserLocation = async () => {
       try {
@@ -46,7 +47,9 @@ export default function Header() {
     setInputData(event.target.value);
   };
 
-  const fetchData = async () => {
+  const fetchData = async (event) => {
+    event.preventDefault();
+
     if (inputData) {
       try {
         const response = await Axios.get(`http://ip-api.com/json/${inputData}`);
