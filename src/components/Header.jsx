@@ -26,6 +26,7 @@ export default function Header() {
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
   const [timezone, setTimezone] = useState("");
+  const [offset, setOffSet] = useState("");
   const [isp, setIsp] = useState("");
   const [inError, setInError] = useState("");
 
@@ -33,15 +34,19 @@ export default function Header() {
   useEffect(() => {
     const fetchUserLocation = async () => {
       try {
-        const response = await Axios.get(`http://ip-api.com/json/`);
-        setLat(response.data.lat);
-        setLon(response.data.lon);
-        setIp(response.data.query);
+        const response = await Axios.get(
+          `https://api.ipgeolocation.io/ipgeo?apiKey=865742e3c3b54c009e3dbcaf0808dd60`
+        );
+        setLat(response.data.latitude);
+        setLon(response.data.longitude);
+        setIp(response.data.ip);
         setCity(response.data.city);
-        setLocation(response.data.regionName);
-        setTimezone(response.data.timezone);
+        setLocation(response.data.state_prov);
+        setTimezone(response.data.time_zone.name);
+        setOffSet(response.data.time_zone.offset);
         setIsp(response.data.isp);
       } catch (error) {
+        alert("Please disable your adblocker for the website to work!");
         console.error("Error fetching data:", error);
       }
     };
@@ -58,21 +63,25 @@ export default function Header() {
 
     if (inputData) {
       try {
-        const response = await Axios.get(`http://ip-api.com/json/${inputData}`);
+        const response = await Axios.get(
+          `https://api.ipgeolocation.io/ipgeo?apiKey=865742e3c3b54c009e3dbcaf0808dd60&ip=${inputData}`
+        );
 
         if (response.data.status === "fail") {
           // setInError("This is an invalid address. Try again.");
           alert("Incorrect IP address format. Try again.");
         } else {
-          setLat(response.data.lat);
-          setLon(response.data.lon);
-          setIp(response.data.query);
+          setLat(response.data.latitude);
+          setLon(response.data.longitude);
+          setIp(response.data.ip);
           setCity(response.data.city);
-          setLocation(response.data.regionName);
-          setTimezone(response.data.timezone);
+          setLocation(response.data.state_prov);
+          setTimezone(response.data.time_zone.name);
+          setOffSet(response.data.time_zone.offset);
           setIsp(response.data.isp);
         }
       } catch (error) {
+        alert("Please disable your adblocker for the website to work!");
         console.error("Error fetching data:", error);
       }
     } else {
