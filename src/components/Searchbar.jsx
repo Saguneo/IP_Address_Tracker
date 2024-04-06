@@ -13,12 +13,15 @@ export const SearchBar = ({ userInput, fetchData }) => {
         onSubmit={fetchData}
       >
         <input
+          role="input-field"
           className="mx-auto py-3 md:py-4 pl-5 w-full rounded-tl-xl rounded-bl-xl"
           type="text"
           placeholder="Search for any IP address or domain"
           onChange={userInput}
         />
         <button
+          id="submit"
+          aria-label="submit-button"
           type="submit"
           className="bg-black p-5 rounded-tr-xl rounded-br-xl"
         >

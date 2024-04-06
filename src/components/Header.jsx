@@ -99,7 +99,7 @@ export default function Header() {
         <SearchBar userInput={userInput} fetchData={fetchData} />
       </div>{" "}
       {/* {inError && <p className=" text-red-600 ">{inError}</p>} */}
-      <div className=" space-y-4 md:space-y-0 w-[85%] max-w-[1100px] mx-auto py-6 md:py-10 flex flex-col md:flex-row bottom-28 md:bottom-24 rounded-2xl bg-white relative z-[2] shadow-lg">
+      <main className=" space-y-4 md:space-y-0 w-[85%] max-w-[1100px] mx-auto py-6 md:py-10 flex flex-col md:flex-row bottom-28 md:bottom-24 rounded-2xl bg-white relative z-[2] shadow-lg">
         <DataDisplay border="2" title="ip address" value={ip} />
         <DataDisplay
           border="2"
@@ -112,7 +112,7 @@ export default function Header() {
           value={"UTC" + " " + timezone}
         />
         <DataDisplay border="" title="isp" value={isp} />
-      </div>
+      </main>
       <div className=" absolute top-[145px] w-full z-[1]">
         <Map getLat={getLat} getLon={getLon} />
       </div>

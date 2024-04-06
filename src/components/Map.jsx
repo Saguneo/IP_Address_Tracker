@@ -20,7 +20,7 @@ export const Map = ({ getLat, getLon }) => {
     <MapContainer
       key={[getLat, getLon]}
       center={[getLat, getLon]}
-      zoom={20}
+      zoom={19}
       scrollWheelZoom={false}
     >
       <TileLayer
