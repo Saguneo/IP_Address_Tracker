@@ -9,7 +9,7 @@ export const SearchBar = ({ userInput, fetchData }) => {
         IP Address Tracker
       </h1>
       <form
-        className="flex mx-auto w-full max-w-[85%] md:max-w-[550px]"
+        className="flex mx-auto w-full max-w-[90%] md:max-w-[550px]"
         onSubmit={fetchData}
       >
         <input
