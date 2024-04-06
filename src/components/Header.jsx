@@ -13,7 +13,9 @@ function DataDisplay({ title, value, border }) {
       <p className=" uppercase text-[10px] mb-1 md:mb-2.5 md:text-xs tracking-widest text-gray-400 font-bold">
         {title}
       </p>
-      <h1 className=" font-medium text-lg md:text-xl lg:text-2xl">{value}</h1>
+      <h1 className=" font-medium text-lg md:text-xl lg:text-2xl line-clamp-2">
+        {value}
+      </h1>
     </div>
   );
 }
@@ -35,7 +37,7 @@ export default function Header() {
     const fetchUserLocation = async () => {
       try {
         const response = await Axios.get(
-          `https://geo.ipify.org/api/v2/country,city?apiKey=at_dinKBkBC5GxQ1PALb6DTOCham3cvd0`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=at_inKBkBC5GxQ1PALb6DTOCham3cvd0`
         );
         setLat(response.data.location.lat);
         setLon(response.data.location.lng);
@@ -65,7 +67,7 @@ export default function Header() {
     if (inputData) {
       try {
         const response = await Axios.get(
-          `https://geo.ipify.org/api/v2/country,city?apiKey=at_dinKBkBC5GxQ1PALb6DTOCham3cvd0&ipAddress=${inputData}`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=at_inKBkBC5GxQ1PALb6DTOCham3cvd0&ipAddress=${inputData}`
         );
 
         if (response.data.status === "fail") {
@@ -98,25 +100,18 @@ export default function Header() {
       </div>{" "}
       {/* {inError && <p className=" text-red-600 ">{inError}</p>} */}
       <div className=" space-y-4 md:space-y-0 w-[85%] max-w-[1100px] mx-auto py-6 md:py-10 flex flex-col md:flex-row bottom-28 md:bottom-24 rounded-2xl bg-white relative z-[2] shadow-lg">
-        <DataDisplay border="2" title="ip address" value={"192.212.174.101"} />
+        <DataDisplay border="2" title="ip address" value={ip} />
         <DataDisplay
           border="2"
           title="location"
-          // value={city + ", " + location}
-          value={"Brooklyn, NY 10001"}
+          value={city + ", " + location}
         />
         <DataDisplay
           border="2"
           title="timezone"
-          // value={"UTC" + " " + timezone}
-          value={"UTC -5:00"}
+          value={"UTC" + " " + timezone}
         />
-        <DataDisplay
-          border=""
-          title="isp"
-          // value={isp}
-          value={"SpaceX Starlink"}
-        />
+        <DataDisplay border="" title="isp" value={isp} />
       </div>
       <div className=" absolute top-[145px] w-full z-[1]">
         <Map getLat={getLat} getLon={getLon} />
