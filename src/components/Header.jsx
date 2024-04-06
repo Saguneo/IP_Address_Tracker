@@ -80,6 +80,7 @@ export default function Header() {
           setIsp(response.data.isp);
         }
       } catch (error) {
+        alert("Please disable your Ad Blocker to allow this feature!");
         console.error("Error fetching data:", error);
       }
     } else {
