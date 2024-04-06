@@ -15,7 +15,7 @@ export const SearchBar = ({ userInput, fetchData }) => {
         <input
           className="mx-auto py-3 pl-4 w-full rounded-tl-xl rounded-bl-xl"
           type="text"
-          placeholder="Search for any IP address or domain"
+          placeholder="Search for any IP address"
           onChange={userInput}
         />
         <button
