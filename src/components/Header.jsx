@@ -8,12 +8,12 @@ function DataDisplay({ title, value, border }) {
     <div
       className={`${
         border && `md:border-r-[1px]`
-      } text-center md:text-start w-full px-3 mb-4 md:pl-6 md:pr-6`}
+      } text-center border-gray-300 md:text-start w-full md:h-[100px] px-10 md:px-8 lg:pr-20 mb-auto`}
     >
-      <p className=" uppercase text-[10px] md:text-xs mb-0.5 md:mb-1.5 tracking-widest text-gray-400 font-bold">
+      <p className=" uppercase text-[10px] mb-1 md:mb-2.5 md:text-xs tracking-widest text-gray-400 font-bold">
         {title}
       </p>
-      <h1 className=" font-semibold text-lg md:text-lg">{value}</h1>
+      <h1 className=" font-medium text-lg md:text-xl lg:text-2xl">{value}</h1>
     </div>
   );
 }
@@ -25,8 +25,8 @@ export default function Header() {
   const [ip, setIp] = useState("");
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
+  const [postal, setPostal] = useState("");
   const [timezone, setTimezone] = useState("");
-  const [offset, setOffSet] = useState("");
   const [isp, setIsp] = useState("");
   const [inError, setInError] = useState("");
 
@@ -35,16 +35,16 @@ export default function Header() {
     const fetchUserLocation = async () => {
       try {
         const response = await Axios.get(
-          `https://ipgeolocation.abstractapi.com/v1/?api_key=b05f476ad255470296062b3f8adad212`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=at_dinKBkBC5GxQ1PALb6DTOCham3cvd0`
         );
-        setLat(response.data.latitude);
-        setLon(response.data.longitude);
-        setIp(response.data.ip_address);
-        setCity(response.data.city);
-        setLocation(response.data.region);
-        setTimezone(response.data.timezone.name);
-        setOffSet(response.data.timezone_offset);
-        setIsp(response.data.connection.organization_name);
+        setLat(response.data.location.lat);
+        setLon(response.data.location.lng);
+        setIp(response.data.ip);
+        setCity(response.data.location.city);
+        setLocation(response.data.location.region);
+        setPostal(response.data.location.postalCode);
+        setTimezone(response.data.location.timezone);
+        setIsp(response.data.isp);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -52,6 +52,8 @@ export default function Header() {
 
     fetchUserLocation();
   }, []);
+
+  console.log(postal);
 
   const userInput = (event) => {
     setInputData(event.target.value);
@@ -63,20 +65,20 @@ export default function Header() {
     if (inputData) {
       try {
         const response = await Axios.get(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=865742e3c3b54c009e3dbcaf0808dd60&ip=${inputData}`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=at_dinKBkBC5GxQ1PALb6DTOCham3cvd0&ipAddress=${inputData}`
         );
 
         if (response.data.status === "fail") {
           // setInError("This is an invalid address. Try again.");
           alert("Incorrect IP address format. Try again.");
         } else {
-          setLat(response.data.latitude);
-          setLon(response.data.longitude);
+          setLat(response.data.location.lat);
+          setLon(response.data.location.lng);
           setIp(response.data.ip);
-          setCity(response.data.city);
-          setLocation(response.data.region);
-          setTimezone(response.data.time_zone.name);
-          setOffSet(response.data.time_zone_offset);
+          setCity(response.data.location.city);
+          setLocation(response.data.location.region);
+          setPostal(response.data.location.postalCode);
+          setTimezone(response.data.location.timezone);
           setIsp(response.data.isp);
         }
       } catch (error) {
@@ -95,17 +97,28 @@ export default function Header() {
         <SearchBar userInput={userInput} fetchData={fetchData} />
       </div>{" "}
       {/* {inError && <p className=" text-red-600 ">{inError}</p>} */}
-      <div className="w-[90%] max-w-[1100px] mx-auto pt-5 pb-1 md:pt-8 md:pb-4 flex flex-col md:flex-row bottom-32 md:bottom-16 rounded-xl bg-white relative z-[2] shadow-lg">
-        <DataDisplay border="2" title="ip address" value={ip} />
+      <div className=" space-y-4 md:space-y-0 w-[85%] max-w-[1100px] mx-auto py-6 md:py-10 flex flex-col md:flex-row bottom-28 md:bottom-24 rounded-2xl bg-white relative z-[2] shadow-lg">
+        <DataDisplay border="2" title="ip address" value={"192.212.174.101"} />
         <DataDisplay
           border="2"
           title="location"
-          value={city + ", " + location}
+          // value={city + ", " + location}
+          value={"Brooklyn, NY 10001"}
         />
-        <DataDisplay border="2" title="timezone" value={timezone} />
-        <DataDisplay border="" title="isp" value={isp} />
+        <DataDisplay
+          border="2"
+          title="timezone"
+          // value={"UTC" + " " + timezone}
+          value={"UTC -5:00"}
+        />
+        <DataDisplay
+          border=""
+          title="isp"
+          // value={isp}
+          value={"SpaceX Starlink"}
+        />
       </div>
-      <div className=" absolute top-[150px] w-full z-[1]">
+      <div className=" absolute top-[145px] w-full z-[1]">
         <Map getLat={getLat} getLon={getLon} />
       </div>
     </div>
