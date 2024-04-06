@@ -35,18 +35,17 @@ export default function Header() {
     const fetchUserLocation = async () => {
       try {
         const response = await Axios.get(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=865742e3c3b54c009e3dbcaf0808dd60`
+          `https://ipgeolocation.abstractapi.com/v1/?api_key=b05f476ad255470296062b3f8adad212`
         );
         setLat(response.data.latitude);
         setLon(response.data.longitude);
-        setIp(response.data.ip);
+        setIp(response.data.ip_address);
         setCity(response.data.city);
-        setLocation(response.data.state_prov);
-        setTimezone(response.data.time_zone.name);
-        setOffSet(response.data.time_zone.offset);
-        setIsp(response.data.isp);
+        setLocation(response.data.region);
+        setTimezone(response.data.timezone.name);
+        setOffSet(response.data.timezone_offset);
+        setIsp(response.data.connection.organization_name);
       } catch (error) {
-        alert("Please disable your adblocker for the website to work!");
         console.error("Error fetching data:", error);
       }
     };
@@ -75,13 +74,12 @@ export default function Header() {
           setLon(response.data.longitude);
           setIp(response.data.ip);
           setCity(response.data.city);
-          setLocation(response.data.state_prov);
+          setLocation(response.data.region);
           setTimezone(response.data.time_zone.name);
-          setOffSet(response.data.time_zone.offset);
+          setOffSet(response.data.time_zone_offset);
           setIsp(response.data.isp);
         }
       } catch (error) {
-        alert("Please disable your adblocker for the website to work!");
         console.error("Error fetching data:", error);
       }
     } else {
